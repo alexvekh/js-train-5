@@ -2,6 +2,7 @@
 function printIndexes(array) {
   // Проходимося по всіх індексах масиву
   // Виводимо кожен індекс на консоль
+  for (const index in array) console.log(index);
 }
 
 console.log("Завдання 1 ====================================");
@@ -19,6 +20,11 @@ function sumArray(array) {
   // Проходимося по всіх індексах масиву
   // Додаємо кожен елемент до загальної суми
   // Повертаємо суму
+  let sum = 0;
+  for (const elem of array) {
+    sum += elem;
+  }
+  return sum;
 }
 
 console.log("Завдання 2 ====================================");
@@ -30,6 +36,11 @@ function multiplyArray(array) {
   // Проходимося по всіх значеннях масиву
   // Множимо кожен елемент на загальний добуток
   // Повертаємо добуток
+  let sum = 1;
+  for (const index of array) {
+    sum *= index;
+  }
+  return sum;
 }
 
 console.log("Завдання 3 ====================================");
@@ -40,6 +51,18 @@ function modifyArray(array) {
   // Видаляємо третій елемент масиву
   delete array[2];
   // Виводимо масив перетворений в рядок
+  console.log(array.toString());
+  // НЕ зрозумів нащо перебирати массив. Якшо кожен елемент.toString(). то пуста комірка виходить <1 empty item>.
+  // for (let i = 0; i < array.length; i++) {
+  //   console.log(array[i]);
+  //   if (i === 2) {
+  //     delete delete array[i];
+  //   } else {
+  //     array[i] = array[i].toString();
+  //     console.log(array[i]);
+  //   }
+  // }
+  // console.log(array);
 }
 
 console.log("Завдання 4 ====================================");
@@ -49,6 +72,11 @@ modifyArray([1, "two", 3, "four", 5]); // Виведе 1,two,,four,5
 function printUppercase(array) {
   // Проходимося по всіх елементах масиву
   // Перетворюємо кожен елемент в верхній регістр та виводимо на консоль
+  for (const item of array) {
+    console.log(item.toUpperCase());
+  }
+
+  //(or)  array.forEach((item) => console.log(item.toUpperCase()));
 }
 
 console.log("Завдання 5 ====================================");
@@ -57,6 +85,17 @@ printUppercase(["one", "two", "three"]); // Виведе ONE TWO THREE
 // Завдання 6: Функція приймає деструктуризований масив чисел де буду перший елемент та масив всіх інших.
 // За допомогою циклу for переберіть масив, знайдіть мінімальне та максимальне значення. Результат виведіть на консоль.
 function findMinMax([firstElement, ...restElements]) {
+  let max = Number.MIN_VALUE;
+  let min = Number.MAX_VALUE;
+  for (const element of restElements) {
+    if (element > max) max = element;
+    if (element < min) min = element;
+  }
+
+  //console.log("Min: " + min + " Max: " + max);
+  //console.log(`Min: ${min} Max: ${max}`);
+  console.log("Min:", min, "Max:", max);
+
   // Ініціалізуємо змінні для мінімального та максимального значень, задаємо їм перше значення масиву
   // Перебираємо масив починаючи з другого елементу
   // Перевіряємо, чи поточний елемент менший за мінімальне значення
@@ -72,9 +111,9 @@ findMinMax([5, 2, 8, 1, 9, 3]); // Виведе Min: 1 Max: 9
 // Завдання 7: Функція приймає масив рядків.
 // Перетворіть масив в рядок за допомогою методу toString() та повторіть його 2 рази. Результат виведіть на консоль.
 function printStrings(array) {
+  console.log(array.toString().repeat(2));
   // Перетворюємо масив в рядок і видаляемо пробіли та виводимо його на консоль
 }
-
 console.log("Завдання 7 ====================================");
 printStrings([1, "two", 3, "four", 5]); // 1,two,3,four,51,two,3,four,5
 
@@ -82,11 +121,11 @@ printStrings([1, "two", 3, "four", 5]); // 1,two,3,four,51,two,3,four,5
 // За допомогою методу toString() перетворіть масив в рядок, та виясніть чи є в цьому рядку підрядок subString .
 
 function concatenateStrings(array, subString) {
+  console.log(array.toString().includes(subString));
   // Використовуємо метод toString() для перетворення масиву в рядок
   //Перевіряємо чи містить рядок підрядок
   // Виводимо результат
 }
-
 console.log("Завдання 8 ====================================");
 concatenateStrings([1, "two", 3, "four", 5], "two"); // Виведе true
 
@@ -94,6 +133,12 @@ concatenateStrings([1, "two", 3, "four", 5], "two"); // Виведе true
 // За допомогою циклу for-in переберіть масив, додайте до кожного елемента 10.
 // Зберігайте результат в новому масиві. Результат виведіть на консоль.
 function addTenToEach(array) {
+  const newArray = Array();
+  for (let element of array) {
+    element += 10;
+    newArray[newArray.length] = element;
+  }
+  console.log(newArray);
   // Ініціалізуємо масив через конструктор з такою же кількістю елементів як в вхідному масиві для зберігання результату
   // Перебираємо масив за допомогою циклу for-in
   // Додаємо до поточного елемента 10 та додаємо результат в новий масив
@@ -112,14 +157,37 @@ function swapMinMax(array) {
   // Умова else if перевіряє, чи є поточний елемент масиву меншим за поточне мінімальне значення. Якщо це так, оновлюємо min з поточним елементом масиву та minIndex з поточним індексом.
   // Застосовуємо деструктуризацію масиву для обміну місцями мінімального та максимального значення в масиві.
   // Функція повертає масив, в якому мінімальне та максимальне значення обміняні місцями.
+  let max = Number.MIN_VALUE;
+  let min = Number.MAX_VALUE;
+  let minIndex = 0;
+  let maxIndex = 0;
+  for (let i = 0; i < array.length; i++) {
+    //for (const element of restElements) {
+    if (array[i] > max) {
+      max = array[i];
+      maxIndex = i;
+    }
+    if (array[i] < min) {
+      min = array[i];
+      minIndex = i;
+    }
+  }
+  [array[minIndex], array[maxIndex]] = [array[maxIndex], array[minIndex]];
+  console.log(array);
 }
-
 console.log("Завдання 10 ====================================");
 // Виводимо в консоль результат виклику функції swapMinMax з масивом [1, 2, 3, 4, 5] як аргументом. Очікуємо бачити [5, 2, 3, 4, 1], оскільки максимальне та мінімальне значення обміняні місцями.
 console.log(swapMinMax([1, 2, 3, 4, 5]));
 
+//
+
 // Завдання 11: Функція приймає масив чисел. Поверніть новий масив, який містить тільки парні числа з оригінального масиву.
 function getEvenNumbers(arr) {
+  let array = Array();
+  for (const element of arr) {
+    if (element % 2 === 0) array[array.length] = element;
+  }
+  return array;
   // Створюємо пустий масив для зберігання результату
   // Проходимо через кожен елемент вхідного масиву
   // Перевіряємо чи є число парним
@@ -131,6 +199,11 @@ console.log(getEvenNumbers([1, 2, 3, 4, 5, 6])); // Виведе [2, 4, 6]
 
 // Завдання 12: Функція приймає масив чисел. Поверніть новий масив, в якому всі числа помножені на їх індекс.
 function multiplyByIndex(arr) {
+  let array = Array();
+  for (let i = 0; i < arr.length; i++) {
+    array[array.length] = arr[i] * i;
+  }
+  return array;
   // Створюємо пустий масив для зберігання результату
   // Проходимо через кожен елемент вхідного масиву
   // Помножуємо число на його індекс і додаємо до масиву результату
@@ -139,8 +212,16 @@ function multiplyByIndex(arr) {
 console.log("Завдання 12 ====================================");
 console.log(multiplyByIndex([1, 2, 3, 4, 5])); // Виведе [0, 2, 6, 12, 20]
 
+//
+
 // Завдання 13: Функція приймає масив чисел. Повертає новий масив, в якому всі числа більші за 10 замінені на рядок "Greater than 10", а решта чисел замінені на рядок "Less than or equal to 10".
 function replaceNumbers(arr) {
+  let array = Array();
+  for (const el of arr) {
+    if (el > 10) array[array.length] = "Greater than 10";
+    if (el <= 10) array[array.length] = "Less than or equal to 10";
+  }
+  return array;
   // Створюємо пустий масив для зберігання результату
   // Проходимо через кожен елемент вхідного масиву
   // Перевіряємо, чи число більше за 10
